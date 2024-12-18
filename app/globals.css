@@ -1,0 +1,74 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:active {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:visited {
+  text-decoration: none;
+  color: inherit;
+}
+
+
+a:hover {
+  text-decoration: none;
+  color: inherit;
+}
+
+
+.animate-fade {
+  transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+}
+
+/* When the item enters (showing) */
+.animate-fade-enter {
+  transform: translateX(0); /* The item starts at its original position */
+  opacity: 1;
+}
+
+/* When the item exits (hiding) */
+.animate-fade-exit {
+  transform: translateX(200px); /* Move the item to the right */
+  opacity: 0; /* Fade out */
+}
+
+.removed {
+  position: absolute; /* Remove from the document flow */
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none; /* Prevent interaction */
+}
+
+.animate-extend {
+  
+}
+
+.aniamte-close {
+
+}
