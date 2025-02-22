@@ -1,3 +1,17 @@
+# Bookmark manager
+
+This is a self hosted productivity tool where i store all my bookmarks.
+
+stack: nextjs, tailwind, sequelize, mariadb.
+
+## Commands
+### dev
+npm i then npm run dev
+### prod
+npm i m npm build, npm start
+
+
+
 ## All the sequelize command
 
 npx sequelize-cli db:migrate
@@ -22,3 +36,7 @@ left side sliding  bar
 export import bookmarks and tags
 delete tags function
 responsive design
+migrate to sqlite db
+add animations
+edit bookmark
+open chromes bookmarks
