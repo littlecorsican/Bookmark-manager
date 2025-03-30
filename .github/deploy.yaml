@@ -1,0 +1,36 @@
+name: Deploy Next.js to AWS Elastic Beanstalk
+
+on:
+  workflow_dispatch: 
+
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build Next.js app
+        run: npm run build
+
+      - name: Create deployment package
+        run: zip -r deployment-package.zip . -x "*.git*"
+
+      - name: Deploy to Elastic Beanstalk
+        uses: einaregilsson/beanstalk-deploy@v20
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          region: us-southeast-12
+          version_label: ${{ github.sha }}
+          deployment_package: deployment-package.zip

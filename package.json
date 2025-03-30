@@ -1,38 +1,10 @@
 {
-  "name": "bookmarkmanager",
-  "version": "0.1.0",
   "private": true,
+  "workspaces": [
+    "bookmark-manager",
+    "project-manager"
+  ],
   "scripts": {
-    "dev": "next dev -H 0.0.0.0 -p 3001",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "cardinal": "^2.1.1",
-    "lodash": "^4.17.21",
-    "lucide-react": "^0.468.0",
-    "mysql2": "^2.3.3",
-    "next": "15.0.4",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-spinners": "^0.15.0",
-    "react-toastify": "^10.0.6",
-    "sequelize": "^6.30.0",
-    "swr": "^2.2.5",
-    "tailwindcss-animate": "^1.0.7",
-    "zod": "^3.23.8"
-  },
-  "devDependencies": {
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "@types/sequelize": "^4.28.20",
-    "eslint": "^8",
-    "eslint-config-next": "15.0.4",
-    "postcss": "^8",
-    "sequelize-cli": "^6.4.1",
-    "tailwindcss": "^3.4.1",
-    "typescript": "^5"
+    "dev": "pnpm -r dev"
   }
 }
