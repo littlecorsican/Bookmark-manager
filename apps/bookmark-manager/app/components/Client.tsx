@@ -18,6 +18,7 @@ import { BookmarkProps } from "@/types/types";
 import { Table, Table2, Download, Upload, Tags, Bookmark } from "lucide-react";
 import { ViewTypes } from "@/types/types";
 import { exportBookmarks, importBookmarks } from "@/utils/helper";
+import Pagination from "./Pagination";
 
 
 const override: CSSProperties = {
@@ -36,16 +37,17 @@ export default function Client() {
   const { openModal:openAddBookmarkModal, Modal:AddBookmarkModal, closeModal: closeAddBookmarkModal } = useModal("w-[50%]");
   const { openModal:openAddTagModal, Modal:AddTagModal, closeModal:closeAddTagModal } = useModal();
 
-  const [offset, setOffset] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
   const [view, setView] = useState<ViewTypes>("List");
   const [filteredBookmarks, setFilteredBookmarks] = useState<BookmarkProps[]>([]);
   const [filterText, setFilterText] = useState<string>("");
   const [loading, setLoading] = useState(false);
+  const [itemsPerPage] = useState(10);
 
   const { tags, isLoading: isTagsLoading, isError: isErrorLoading, refetchTags } = useTags();
 
   const { bookmarks, isLoading, isError, mutate } = useBookmarks({
-    offset: offset
+    offset: currentPage
   });
 
   useEffect(()=>{
@@ -86,10 +88,18 @@ export default function Client() {
           <Button className="" tooltip="Set Card view" onClick={()=>setView("Card")}>
             <Table2 />
           </Button>
-          <Button className="" tooltip="Download Bookmarks as csv" onClick={exportBookmarks}>
+          <Button className="" tooltip="Download Bookmarks as csv" onClick={() => exportBookmarks(bookmarks?.data || [])}>
             <Download />
           </Button>
-          <Button className="" tooltip="Load Bookmarks from csv" onClick={importBookmarks}>
+          <Button className="" tooltip="Load Bookmarks from csv" onClick={async () => {
+            try {
+              const importedBookmarks = await importBookmarks();
+              console.log("Imported bookmarks:", importedBookmarks);
+              // TODO: Implement bulk import functionality
+            } catch (error) {
+              console.error("Import failed:", error);
+            }
+          }}>
             <Upload />
           </Button>
         </TopBar>
@@ -106,6 +116,15 @@ export default function Client() {
           view={view}
           refetchBookmarks={mutate}
         />
+        {bookmarks && (
+          <Pagination
+            currentPage={currentPage}
+            totalPages={bookmarks.totalPages}
+            onPageChange={setCurrentPage}
+            totalItems={bookmarks.totalItems}
+            itemsPerPage={itemsPerPage}
+          />
+        )}
         <AddBookmarkModal>
           <AddBookmark
             refetchBookmarks={mutate}

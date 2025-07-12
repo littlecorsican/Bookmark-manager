@@ -1,36 +1,168 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Bookmark Manager
+
+A modern, feature-rich bookmark management application built with Next.js, TypeScript, and Prisma.
+
+## Features
+
+- 📚 **Bookmark Management**: Add, edit, delete, and organize bookmarks
+- 🏷️ **Tag System**: Categorize bookmarks with custom tags
+- 🔍 **Advanced Search**: Search by title, description, URL, and tags
+- 📊 **Analytics**: Track visit counts and last visited dates
+- 📱 **Responsive Design**: Works on desktop and mobile devices
+- 🎨 **Multiple Views**: List and card view modes
+- 📤 **Export/Import**: Export bookmarks to CSV and import from CSV
+- ⚡ **Fast Performance**: Optimized with Next.js and SWR
+- 🔒 **Type Safety**: Full TypeScript support
+
+## Tech Stack
+
+- **Frontend**: Next.js 15, React 19, TypeScript
+- **Styling**: Tailwind CSS
+- **Database**: SQLite with Prisma ORM
+- **State Management**: SWR for data fetching
+- **Icons**: Lucide React
+- **Validation**: Zod
+- **Package Manager**: pnpm
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- Node.js 18+ 
+- pnpm (recommended) or npm
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd bookmark-manager
+   ```
+
+2. **Install dependencies**
+   ```bash
+   pnpm install
+   ```
+
+3. **Set up environment variables**
+   ```bash
+   cp .env.example .env.local
+   ```
+   
+   Update the `.env.local` file with your configuration:
+   ```env
+   DATABASE_URL="file:./prisma/db.sqlite"
+   NEXTAUTH_SECRET="your-secret-key-here"
+   ```
+
+4. **Set up the database**
+   ```bash
+   pnpm prisma generate
+   pnpm prisma db push
+   ```
+
+5. **Run the development server**
+   ```bash
+   pnpm dev
+   ```
+
+6. **Open your browser**
+   Navigate to [http://localhost:3000](http://localhost:3000)
+
+## Development
+
+### Available Scripts
+
+- `pnpm dev` - Start development server
+- `pnpm build` - Build for production
+- `pnpm start` - Start production server
+- `pnpm lint` - Run ESLint
+- `pnpm prisma studio` - Open Prisma Studio
+- `pnpm prisma generate` - Generate Prisma client
+- `pnpm prisma db push` - Push schema changes to database
+
+### Project Structure
+
+```
+apps/bookmark-manager/
+├── app/
+│   ├── api/                 # API routes
+│   ├── components/          # React components
+│   ├── functions/           # Utility functions
+│   ├── hooks/              # Custom React hooks
+│   ├── types/              # TypeScript type definitions
+│   └── utils/              # Utility functions
+├── prisma/                 # Database schema and migrations
+├── public/                 # Static assets
+└── Dockerfile             # Docker configuration
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Database Schema
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The application uses a simple but effective schema:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Bookmarks**: Store bookmark data with title, URL, description, and visit tracking
+- **Tags**: Organize bookmarks with custom tags
+- **Relations**: Many-to-many relationship between bookmarks and tags
 
-## Learn More
+## Deployment
 
-To learn more about Next.js, take a look at the following resources:
+### Docker Deployment
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. **Build the Docker image**
+   ```bash
+   docker build -t bookmark-manager .
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+2. **Run the container**
+   ```bash
+   docker run -p 3000:3000 bookmark-manager
+   ```
 
-## Deploy on Vercel
+### Vercel Deployment
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. **Connect your repository to Vercel**
+2. **Set environment variables** in Vercel dashboard
+3. **Deploy** - Vercel will automatically build and deploy your app
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Environment Variables
+
+- `DATABASE_URL` - Database connection string
+- `NEXTAUTH_SECRET` - Secret key for authentication (if using)
+- `NODE_ENV` - Environment (development/production)
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Recent Improvements
+
+- ✅ **Database Optimization**: Added indexes for better query performance
+- ✅ **Error Handling**: Improved error boundaries and API error handling
+- ✅ **Type Safety**: Enhanced TypeScript types and validation
+- ✅ **Performance**: Optimized database connections and component rendering
+- ✅ **Search Enhancement**: Advanced search with filters
+- ✅ **Export/Import**: Fixed CSV export and import functionality
+- ✅ **Pagination**: Added proper pagination controls
+- ✅ **Security**: Input validation and sanitization
+- ✅ **Docker**: Improved production Docker configuration
+- ✅ **Loading States**: Added skeleton loading components
+
+## Roadmap
+
+- [ ] User authentication and authorization
+- [ ] Bookmark folders/categories
+- [ ] Browser extension integration
+- [ ] Mobile app
+- [ ] Advanced analytics and insights
+- [ ] Social sharing features
+- [ ] API rate limiting
+- [ ] Automated backups

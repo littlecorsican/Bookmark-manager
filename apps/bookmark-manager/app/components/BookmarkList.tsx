@@ -1,21 +1,21 @@
 import React, { SyntheticEvent } from "react";
 import CardView from "./CardView";
 import ListView from "./ListView";
-import { BookmarkProps, BookmarkListProps } from "@/types/types";
+import { BookmarkProps } from "@/types/types";
 
 
 
-const BookmarkList:any = (
-  { 
-    bookmarks,
-    view,
-    refetchBookmarks
-  }: {
-    bookmarks: BookmarkProps[],
-    view: "List"|"Card",
-    refetchBookmarks: ()=> void 
-  }
-) => {
+interface BookmarkListComponentProps {
+  bookmarks: BookmarkProps[];
+  view: "List" | "Card";
+  refetchBookmarks: () => void;
+}
+
+const BookmarkList: React.FC<BookmarkListComponentProps> = ({
+  bookmarks,
+  view,
+  refetchBookmarks
+}) => {
 
   const handleTransitionEnd=(e:any)=>{
     if (e.nativeEvent?.propertyName != "transform" && e.target?.classList.contains("animate-fade-exit")) {

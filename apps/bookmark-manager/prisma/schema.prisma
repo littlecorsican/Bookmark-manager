@@ -22,14 +22,22 @@ model Bookmark {
   last_visited DateTime?
   html         String   @default("")
   created_at   DateTime @default(now())
+  updated_at   DateTime @updatedAt
   tags         Tag[]    @relation("BookmarkTags")
-}
 
+  @@index([created_at])
+  @@index([last_visited])
+  @@index([count])
+  @@index([title])
+}
 
 model Tag {
   name        String    @id @unique
   created_at  DateTime  @default(now())
+  updated_at  DateTime  @updatedAt
   bookmarks   Bookmark[] @relation("BookmarkTags")
+
+  @@index([name])
 }
 
 

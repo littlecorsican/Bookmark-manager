@@ -1,8 +1,6 @@
 import { NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "@/lib/prisma";
 import { z } from "zod";
-
-const prisma = new PrismaClient();
 
 interface PaginatedResult<T> {
   data: T[];
@@ -46,15 +44,31 @@ export async function GET(req: Request) {
     const page = parseInt(url.searchParams.get("page") || "1");
     const limit = parseInt(url.searchParams.get("limit") || "10");
 
-    console.log("page", page);
+    // Validate input parameters
+    if (page < 1 || limit < 1 || limit > 100) {
+      return NextResponse.json(
+        { error: "Invalid pagination parameters" },
+        { status: 400 }
+      );
+    }
 
     const result = await getPaginatedBookmarks(page, limit);
-    console.log("result", result);
 
     return NextResponse.json(result, { status: 200 });
   } catch (error) {
-    console.error("error", error);
-    return NextResponse.json({ error: "Failed to fetch data" }, { status: 500 });
+    console.error("Error fetching bookmarks:", error);
+    
+    if (error instanceof Error) {
+      return NextResponse.json(
+        { error: error.message },
+        { status: 500 }
+      );
+    }
+    
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
   }
 }
 
