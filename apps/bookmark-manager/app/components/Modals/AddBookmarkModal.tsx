@@ -11,6 +11,7 @@ import { TagProps } from "@/types/types"
 import { API } from "@/utils/API";
 import { CirclePlus } from 'lucide-react';
 import { createTag } from "@/functions/createTag"
+import { getClipboardText } from "@/utils/clipboard"
 
 
 export default function AddBookmarkModal({
@@ -28,6 +29,7 @@ export default function AddBookmarkModal({
     const descriptionRef = useRef<HTMLTextAreaElement>(null);
     const context = useContext(GlobalContext);
     const [selectedTags, setSelectedTags] = useState([])
+    const [clipboardText, setClipboardText] = useState<string>("");
 
     const { tags, isLoading: isTagsLoading, isError: isErrorLoading } = useTags();
 
@@ -103,6 +105,16 @@ export default function AddBookmarkModal({
         }
     };
       
+
+    useEffect(() => {
+        async function clipboardText() {
+            const text = await getClipboardText();
+            setClipboardText(text);
+        }
+
+        clipboardText();
+    }, []);
+
       
 
     return <>
@@ -119,7 +131,9 @@ export default function AddBookmarkModal({
             placeholder="http://"
             label="URL"
             ref={urlRef}
+            defaultValue={clipboardText}
         />
+        <div className="text-red-500 text-xs px-4">If http:// or https:// is not added on the link, it will be assumed to be https://</div>
         <Textarea 
             id="description"
             placeholder="Enter description here (optional)"

@@ -51,6 +51,7 @@ interface InputProps {
    * ID for the input (used for associating with label)
    */
   id: string;
+  defaultValue: string | Promise<string>;
 }
 
 const TextInput = forwardRef<HTMLInputElement, InputProps>(({
@@ -64,6 +65,7 @@ const TextInput = forwardRef<HTMLInputElement, InputProps>(({
   label,
   id,
   type = "text",
+  defaultValue = "",
 }, ref) => {
   return (
     <FormGroup label={label}>
@@ -82,6 +84,7 @@ const TextInput = forwardRef<HTMLInputElement, InputProps>(({
         placeholder={placeholder}
         required={required}
         disabled={disabled}
+        defaultValue={defaultValue}
         className={`w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500 transition ${
           disabled ? "bg-gray-200 cursor-not-allowed" : "bg-white"
         } ${className}`}

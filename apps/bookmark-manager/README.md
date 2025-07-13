@@ -34,3 +34,21 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+prisma db pull
+Purpose: Pull your existing database schema into your Prisma schema.
+
+prisma db push
+Purpose: Push your Prisma schema to the database.
+
+prisma db seed
+Purpose: Run your seed script to populate the database with test or initial data.
+
+prisma db execute
+Purpose: Execute raw SQL statements against your database.
+
+prisma generate
+Purpose: Generate client code (e.g. @prisma/client) based on your schema.prisma.
+
+npx prisma generate
+npx prisma db push
