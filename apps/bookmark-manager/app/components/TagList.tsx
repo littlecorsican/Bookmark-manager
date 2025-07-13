@@ -20,7 +20,7 @@ const TagList: React.FC = (
         <Trash2 size="40px" />
       </div> */}
       <Tag key="reset" name="Reset" onClick={() => setFilteredBookmarks(bookmarks.data)} />
-      {tags && tags.data.length > 0 ? (
+      {tags && tags?.data?.length > 0 ? (
         tags.data.map((tag: TagProps) => (
           <Tag 
             key={tag.name}

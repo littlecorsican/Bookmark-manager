@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { z } from "zod";
-import logger from "@/lib/logger";
+import logger from "../../../lib/logger";
 
 interface PaginatedResult<T> {
   data: T[];
