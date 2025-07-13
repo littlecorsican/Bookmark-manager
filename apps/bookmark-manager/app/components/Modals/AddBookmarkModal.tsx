@@ -39,6 +39,7 @@ export default function AddBookmarkModal({
         try {
           if (!urlRef.current?.value) return;
           context?.setLoading(true);
+          const title = titleRef?.current?.value || ""
       
           const response = await fetch(API.bookmark, {
             method: "POST",
@@ -46,7 +47,7 @@ export default function AddBookmarkModal({
               "Content-Type": "application/json",
             },
             body: JSON.stringify({ 
-              title: titleRef?.current?.value,
+              title: title,
               description: descriptionRef?.current?.value || "",
               url: urlRef?.current?.value,
               tags: selectedTags,
@@ -60,7 +61,7 @@ export default function AddBookmarkModal({
 
           refetchBookmarks()
           refetchTags()
-          context?.toast(`Created bookmark ${titleRef?.current?.value}`);
+          context?.toast(`Created bookmark ${title}`);
         } catch (e: unknown) {
           context?.toast(`Failed to create bookmark, ${e}`);
           throw e;

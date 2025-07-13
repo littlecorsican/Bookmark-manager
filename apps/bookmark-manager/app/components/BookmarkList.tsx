@@ -29,7 +29,7 @@ const BookmarkList: React.FC<BookmarkListComponentProps> = ({
   }
 
   return (
-    <div className="bg-gradient-to-b from-blue-400 via-cyan-300 to-yellow-200 p-6 rounded-md shadow-lg">
+    <div className="bg-gradient-to-b from-blue-400 via-cyan-300 to-yellow-200 p-6 rounded-md shadow-lg min-h-[60vh]">
       <h2 className="text-2xl font-bold text-blue-800 mb-4 text-center">
 
       </h2>

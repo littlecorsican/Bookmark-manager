@@ -15,7 +15,12 @@ export async function POST(req: Request) {
 
     const bookmarkSchema = z.object({
       title: z.string().optional(),
-      url: z.string().url(),
+      url: z.preprocess((val) => {
+        if (typeof val === "string" && !/^https?:\/\//i.test(val)) {
+          return `https://${val}`;
+        }
+        return val;
+      }, z.string().url()),
       description: z.string().optional(),
       tags: z.array(tagSchema).optional(),
       html: z.string().optional() // actually its not going to be passed in by FE, just want to silence typescript warning
@@ -43,13 +48,24 @@ export async function POST(req: Request) {
 
     console.log("parsedData", parsedData);
 
+    // Handle tags - connect to existing tags or create new ones if they don't exist
+    let tagsConnection = undefined;
+    if (parsedData.tags && parsedData.tags.length > 0) {
+      tagsConnection = {
+        connectOrCreate: parsedData.tags.map(tag => ({
+          where: { name: tag.name },
+          create: { name: tag.name }
+        }))
+      };
+    }
+
     const newBookmark = await prisma.bookmark.create({
       data: {
         title: parsedData.title,
         url: parsedData.url,
         html: parsedData.html || "",
         description: parsedData.description,
-        tags: parsedData.tags ? { create: parsedData.tags } : undefined,
+        tags: tagsConnection,
       },
     });
 
